@@ -1,6 +1,5 @@
-dag_type: plain_text
-description: Create an operating system from start to finish, covering all necessary
-  steps and tasks.
+dag_type: typed
+description: Generated workflow from UI.
 name: build_operating_system_from_scratch
 nodes:
   define_operating_system_architecture:
@@ -10,6 +9,26 @@ nodes:
     name: define_operating_system_architecture
     nodes_depended_on: []
     nodes_dependent_on: []
+    output_structure:
+    - description: Description of the kernel component and its role in the architecture
+      key: kernel_description
+      type: str
+    - description: Description of the device drivers and their interaction with hardware
+        components
+      key: device_drivers_description
+      type: str
+    - description: Description of the file system structure and functionalities
+      key: file_system_description
+      type: str
+    - description: Description of the user interface components and user interactions
+      key: user_interface_description
+      type: str
+    - description: List of all major OS components included in the architecture
+      key: component_names
+      type: List[str]
+    - description: List describing relationships or interactions between OS components
+      key: component_relationships
+      type: List[str]
     prompt: Design a detailed architecture for an operating system, including the
       kernel, device drivers, file system, and user interface components. Specify
       the relationships between these components.
@@ -21,6 +40,28 @@ nodes:
     nodes_depended_on:
     - define_operating_system_architecture
     nodes_dependent_on: []
+    output_structure:
+    - description: Version identifier of the kernel
+      key: kernel_version
+      type: str
+    - description: Type of memory management strategy (e.g., paging, segmentation,
+        hybrid)
+      key: memory_manager_type
+      type: str
+    - description: Type of CPU scheduling algorithm (e.g., round-robin, priority,
+        fair-share)
+      key: cpu_scheduler_type
+      type: str
+    - description: Number of distinct I/O driver interfaces exposed by the kernel
+      key: io_driver_interface_count
+      type: int
+    - description: List of system call names provided by the kernel
+      key: exposed_system_calls
+      type: List[str]
+    - description: Total count of kernel API functions available to device drivers
+        and user space
+      key: exposed_api_count
+      type: int
     prompt: Design a kernel that manages hardware resources, including memory, CPUs,
       and I/O devices. Specify the system calls and APIs that it provides.
   develop_device_drivers:
@@ -31,6 +72,22 @@ nodes:
     nodes_depended_on:
     - define_operating_system_architecture
     nodes_dependent_on: []
+    output_structure:
+    - description: List of names of device drivers implemented
+      key: device_driver_names
+      type: List[str]
+    - description: List of system calls provided by the device drivers
+      key: system_calls
+      type: List[str]
+    - description: List of descriptions of APIs provided by the device drivers
+      key: api_descriptions
+      type: List[str]
+    - description: List of hardware devices supported by the device drivers
+      key: hardware_device_support
+      type: List[str]
+    - description: Whether the device drivers have been successfully implemented
+      key: implementation_status
+      type: bool
     prompt: Design and implement device drivers for hardware devices such as keyboards,
       displays, and storage devices. Specify the system calls and APIs that they provide.
   implement_boot_process:
@@ -41,6 +98,22 @@ nodes:
     nodes_depended_on:
     - define_operating_system_architecture
     nodes_dependent_on: []
+    output_structure:
+    - description: Name of the bootloader used in the boot process
+      key: bootloader_name
+      type: str
+    - description: Whether the kernel has been successfully initialized
+      key: kernel_initialization_status
+      type: bool
+    - description: Whether the operating system has been successfully loaded
+      key: operating_system_load_status
+      type: bool
+    - description: Time taken to execute the boot process in seconds
+      key: boot_process_execution_time
+      type: float
+    - description: List of APIs used in the boot process
+      key: apis_used
+      type: List[str]
     prompt: Design and implement a boot process that initializes the kernel and loads
       the operating system. Specify the bootloaders and APIs that it uses.
   implement_file_system:
@@ -51,6 +124,35 @@ nodes:
     nodes_depended_on:
     - define_operating_system_architecture
     nodes_dependent_on: []
+    output_structure:
+    - description: The name of the file system being implemented (e.g., ext4, NTFS,
+        customFS)
+      key: file_system_name
+      type: str
+    - description: List of file formats (e.g., regular files, directories, symlinks,
+        device nodes) supported by the file system
+      key: supported_file_formats
+      type: List[str]
+    - description: The size of a single block in bytes used by the file system
+      key: block_size_bytes
+      type: int
+    - description: The maximum file size in bytes that the file system can support
+      key: max_file_size_bytes
+      type: int
+    - description: The maximum number of directories that can be created in the file
+        system
+      key: max_directories
+      type: int
+    - description: Brief description of the inode structure used to store file metadata
+      key: inode_structure_description
+      type: str
+    - description: Indicates whether the file system uses a journal for crash recovery
+      key: journal_enabled
+      type: bool
+    - description: The mount point path where the file system will be attached in
+        the OS
+      key: mount_point
+      type: str
     prompt: Design and implement a file system that provides a structured way to store
       files and directories. Specify the file formats and structures that it supports.
   implement_networking:
@@ -61,6 +163,25 @@ nodes:
     nodes_depended_on:
     - define_operating_system_architecture
     nodes_dependent_on: []
+    output_structure:
+    - description: The network protocol used for communication (e.g., TCP/IP, HTTP,
+        FTP)
+      key: network_protocol
+      type: str
+    - description: List of APIs supported by the networking component
+      key: supported APIs
+      type: List[str]
+    - description: List of devices supported by the networking component (e.g., Wi-Fi,
+        Ethernet, Bluetooth)
+      key: device_support
+      type: List[str]
+    - description: Whether the networking component has been successfully implemented
+      key: implementation_status
+      type: bool
+    - description: List of security features implemented in the networking component
+        (e.g., encryption, firewall, access control)
+      key: security_features
+      type: List[str]
     prompt: Design and implement networking components that enable communication between
       devices on a network. Specify the network protocols and APIs that it supports.
   implement_security:
@@ -71,6 +192,23 @@ nodes:
     nodes_depended_on:
     - define_operating_system_architecture
     nodes_dependent_on: []
+    output_structure:
+    - description: List of authentication mechanisms supported (e.g., password, biometric,
+        token).
+      key: auth_mechanisms
+      type: List[str]
+    - description: List of encryption algorithms used for data at rest and in transit.
+      key: encryption_algorithms
+      type: List[str]
+    - description: Number of days that security audit logs are retained.
+      key: audit_log_retention_days
+      type: int
+    - description: Indicates whether real‑time threat detection is enabled.
+      key: threat_detection_enabled
+      type: bool
+    - description: Description of the access control policy model (e.g., RBAC, ABAC).
+      key: access_control_policy
+      type: str
     prompt: Design and implement security components that protect the operating system
       from unauthorized access and malicious activity. Specify the security protocols
       and APIs that it supports.
@@ -82,6 +220,22 @@ nodes:
     nodes_depended_on:
     - define_operating_system_architecture
     nodes_dependent_on: []
+    output_structure:
+    - description: List of public API endpoint names exposed by the user interface.
+      key: api_endpoints
+      type: List[str]
+    - description: List of system call names that the user interface can invoke on
+        the kernel.
+      key: system_calls
+      type: List[str]
+    - description: List of top‑level UI component names (e.g., window manager, shell,
+        file explorer).
+      key: ui_components
+      type: List[str]
+    - description: Indicates whether the user interface includes an event handling
+        loop.
+      key: event_handling_enabled
+      type: bool
     prompt: Design and implement a user interface that interacts with the kernel and
       provides services to user-level applications. Specify the APIs and system calls
       that it provides.
@@ -92,6 +246,23 @@ nodes:
     name: test_and_verify
     nodes_depended_on: []
     nodes_dependent_on: []
+    output_structure:
+    - description: Whether the operating system tests were successful
+      key: test_results
+      type: bool
+    - description: List of defects or security vulnerabilities identified during testing
+      key: identified_defects
+      type: List[str]
+    - description: List of fixes implemented to address identified defects or security
+        vulnerabilities
+      key: fixes_implemented
+      type: List[str]
+    - description: Whether any security vulnerabilities were found during testing
+      key: security_vulnerability_status
+      type: bool
+    - description: Percentage of the operating system that was covered by the tests
+      key: test_coverage
+      type: float
     prompt: Test and verify the operating system to ensure that it functions correctly
       and securely. Identify any defects or security vulnerabilities and implement
       fixes.
