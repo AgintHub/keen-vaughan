@@ -1,0 +1,97 @@
+dag_type: plain_text
+description: Create an operating system from start to finish, covering all necessary
+  steps and tasks.
+name: build_operating_system_from_scratch
+nodes:
+  define_operating_system_architecture:
+    agent: false
+    description: Determine the overall architecture of the operating system, including
+      its components and structure.
+    name: define_operating_system_architecture
+    nodes_depended_on: []
+    nodes_dependent_on: []
+    prompt: Design a detailed architecture for an operating system, including the
+      kernel, device drivers, file system, and user interface components. Specify
+      the relationships between these components.
+  design_kernel:
+    agent: false
+    description: Create the kernel, which manages hardware resources and provides
+      low-level system services.
+    name: design_kernel
+    nodes_depended_on:
+    - define_operating_system_architecture
+    nodes_dependent_on: []
+    prompt: Design a kernel that manages hardware resources, including memory, CPUs,
+      and I/O devices. Specify the system calls and APIs that it provides.
+  develop_device_drivers:
+    agent: false
+    description: Create device drivers that interact with hardware devices and provide
+      low-level system services.
+    name: develop_device_drivers
+    nodes_depended_on:
+    - define_operating_system_architecture
+    nodes_dependent_on: []
+    prompt: Design and implement device drivers for hardware devices such as keyboards,
+      displays, and storage devices. Specify the system calls and APIs that they provide.
+  implement_boot_process:
+    agent: false
+    description: Create a boot process that initializes the kernel and loads the operating
+      system.
+    name: implement_boot_process
+    nodes_depended_on:
+    - define_operating_system_architecture
+    nodes_dependent_on: []
+    prompt: Design and implement a boot process that initializes the kernel and loads
+      the operating system. Specify the bootloaders and APIs that it uses.
+  implement_file_system:
+    agent: false
+    description: Create a file system that provides persistent storage for the operating
+      system.
+    name: implement_file_system
+    nodes_depended_on:
+    - define_operating_system_architecture
+    nodes_dependent_on: []
+    prompt: Design and implement a file system that provides a structured way to store
+      files and directories. Specify the file formats and structures that it supports.
+  implement_networking:
+    agent: false
+    description: Create networking components that enable communication between devices
+      on a network.
+    name: implement_networking
+    nodes_depended_on:
+    - define_operating_system_architecture
+    nodes_dependent_on: []
+    prompt: Design and implement networking components that enable communication between
+      devices on a network. Specify the network protocols and APIs that it supports.
+  implement_security:
+    agent: false
+    description: Create security components that protect the operating system from
+      unauthorized access and malicious activity.
+    name: implement_security
+    nodes_depended_on:
+    - define_operating_system_architecture
+    nodes_dependent_on: []
+    prompt: Design and implement security components that protect the operating system
+      from unauthorized access and malicious activity. Specify the security protocols
+      and APIs that it supports.
+  implement_user_interface:
+    agent: false
+    description: Create a user interface that interacts with the kernel and provides
+      services to user-level applications.
+    name: implement_user_interface
+    nodes_depended_on:
+    - define_operating_system_architecture
+    nodes_dependent_on: []
+    prompt: Design and implement a user interface that interacts with the kernel and
+      provides services to user-level applications. Specify the APIs and system calls
+      that it provides.
+  test_and_verify:
+    agent: false
+    description: Test and verify the operating system to ensure that it functions
+      correctly and securely.
+    name: test_and_verify
+    nodes_depended_on: []
+    nodes_dependent_on: []
+    prompt: Test and verify the operating system to ensure that it functions correctly
+      and securely. Identify any defects or security vulnerabilities and implement
+      fixes.
